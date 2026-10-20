@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class Util_Follow : MonoBehaviour, IBeginDragHandler, IEndDragHandler
+public class Util_Follow : MonoBehaviour
 {
     [SerializeField] Transform target;
     [SerializeField] Vector3 offset;
@@ -9,7 +8,6 @@ public class Util_Follow : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     [SerializeField] float followDistance;
     public bool doFollow;
     [SerializeField] bool disableZ;
-    [SerializeField] bool controlDistanceWithMouse;
     [SerializeField] bool followRotationX;
     [SerializeField] bool followRotationY;
     [SerializeField] bool followRotationZ;
@@ -58,17 +56,5 @@ public class Util_Follow : MonoBehaviour, IBeginDragHandler, IEndDragHandler
             
         transform.position = Vector3.Lerp(transform.position, targetPosition+offset, Time.deltaTime * followSpeed);
 
-        if (controlDistanceWithMouse) followDistance -= Input.GetAxis("Mouse ScrollWheel") * 5;
-    }
-
-    // Drag Initialization
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        doFollow = false;
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        doFollow = true;
     }
 }
