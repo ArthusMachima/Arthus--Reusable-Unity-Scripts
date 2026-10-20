@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Util__DOTweenSequenceGroup : MonoBehaviour
+public class Util_LeanTweenSequenceGroup : MonoBehaviour
 {
-    [SerializeField] DOTweenSequencer[] Sequences;
+    [SerializeField] LeanTweenSequencer[] Sequences;
     [Header("Debug")]
     [SerializeField] bool PreviewSequence;
 
@@ -13,6 +13,7 @@ public class Util__DOTweenSequenceGroup : MonoBehaviour
             PlaySequences();
             PreviewSequence = false;
         }
+
     }
 
     public void PlaySequences()

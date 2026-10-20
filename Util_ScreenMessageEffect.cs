@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class Util__ScreenMessageEffect : MonoBehaviour
+public class Util_ScreenMessageEffect : MonoBehaviour
 {
     [SerializeField] float transitionTime = 0.2f;
     public float showTime = 0.5f;

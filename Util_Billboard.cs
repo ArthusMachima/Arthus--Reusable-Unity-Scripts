@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Util__Billboard : MonoBehaviour
+public class Util_Billboard : MonoBehaviour
 {
     Transform cam;
     public float referenceDistance = 10f; // Distance at which the object appears at its original size

@@ -2,7 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class Util__TextFlash : MonoBehaviour
+public class Util_TextFlash : MonoBehaviour
 {
     [SerializeField] private float Size = 1.0f;
     [SerializeField] private float moveAmount=1;

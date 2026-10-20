@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Util__StatsSystem : MonoBehaviour
+public class Util_StatsSystem : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField] GameObject HPBar;

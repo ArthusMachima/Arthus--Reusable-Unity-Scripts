@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Util__ConsoleText : MonoBehaviour
+public class Util_ConsoleText : MonoBehaviour
 {
     [Header("Console Settings")]
     [SerializeField] private Vector2 textPosition = new Vector2(0, 0);

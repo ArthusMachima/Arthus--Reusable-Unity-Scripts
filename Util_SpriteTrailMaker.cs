@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Util__SpriteTrailMaker : MonoBehaviour
+public class Util_SpriteTrailMaker : MonoBehaviour
 {
     float time;
     [SerializeField] float spriteRate = 0.05f;

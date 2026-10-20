@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-public class Util__MethodDebugger : MonoBehaviour
+public class Util_MethodDebugger : MonoBehaviour
 {
     [System.Serializable]
     public class MethodEvent

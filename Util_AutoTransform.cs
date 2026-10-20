@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Util__AutoTransform : MonoBehaviour
+public class Util_AutoTransform : MonoBehaviour
 {
     [Header("Position")]
     [SerializeField] private float PosX;

@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Util__WholeMaterialChanger : MonoBehaviour
+public class Util_WholeMaterialChanger : MonoBehaviour
 {
     // Singleton
-    public static WholeMaterialChanger inst;
+    public static Util_WholeMaterialChanger inst;
     private void OnEnable()
     {
         inst = this;

@@ -3,7 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class Util__FPShooterSystem : MonoBehaviour
+public class Util_FPShooterSystem : MonoBehaviour
 {
     [SerializeField] int damage = 500;
     [SerializeField] GameObject bulletHitParticle;

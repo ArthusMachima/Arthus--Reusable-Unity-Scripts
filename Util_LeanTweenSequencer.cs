@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
-public class Util__DOTweenSequencer : MonoBehaviour
+public class Util_LeanTweenSequencer : MonoBehaviour
 {
-    [SerializeField] DOTweenKeyframe[] keyframes;
+    [SerializeField] LeanTweenKeyframe[] keyframes;
     [SerializeField] bool playOnStart;
     [SerializeField] bool saveDefaultValue;
     [SerializeField] bool deleteOnAnimationEnd;
@@ -48,7 +47,7 @@ public class Util__DOTweenSequencer : MonoBehaviour
     public void PlayKeyframes()
     {
         if (_sequenceCoroutine != null) StopCoroutine(_sequenceCoroutine);
-        DOTween.Kill(gameObject);
+        LeanTween.cancel(gameObject);
 
         if (saveDefaultValue)
         {
@@ -62,8 +61,8 @@ public class Util__DOTweenSequencer : MonoBehaviour
 
     private IEnumerator RunSequence()
     {
-        var groups = new List<List<DOTweenKeyframe>>();
-        var currentGroup = new List<DOTweenKeyframe>();
+        var groups = new List<List<LeanTweenKeyframe>>();
+        var currentGroup = new List<LeanTweenKeyframe>();
 
         foreach (var key in keyframes)
         {
@@ -71,11 +70,11 @@ public class Util__DOTweenSequencer : MonoBehaviour
             if (!key.isLayer)
             {
                 groups.Add(currentGroup);
-                currentGroup = new List<DOTweenKeyframe>();
+                currentGroup = new List<LeanTweenKeyframe>();
             }
         }
 
-        // Leftover layers with no non-layer anchor — play them as a final group
+        // Leftover layers with no non-layer anchor � play them as a final group
         if (currentGroup.Count > 0)
             groups.Add(currentGroup);
 
@@ -87,7 +86,7 @@ public class Util__DOTweenSequencer : MonoBehaviour
             // All others are layers (run concurrently)
             for (int i = 0; i < group.Count; i++)
             {
-                DOTweenKeyframe key = group[i];
+                LeanTweenKeyframe key = group[i];
                 bool isAnchor = i == group.Count - 1;
 
                 PlayKeyframe(key, isAnchor ? () => groupDone = true : null);
@@ -100,7 +99,7 @@ public class Util__DOTweenSequencer : MonoBehaviour
         if (deleteOnAnimationEnd)
         {
             Destroy(gameObject);
-            if (gameObject.transform.parent.TryGetComponent<DOTweenSequenceGroup>(out DOTweenSequenceGroup group))
+            if (gameObject.transform.parent.TryGetComponent<LeanTweenSequenceGroup>(out LeanTweenSequenceGroup group))
             {
                 if (group == null) yield break;
                 Destroy(group.gameObject);
@@ -108,61 +107,38 @@ public class Util__DOTweenSequencer : MonoBehaviour
         }
     }
 
-    private void PlayKeyframe(DOTweenKeyframe key, Action onComplete)
+    private void PlayKeyframe(LeanTweenKeyframe key, Action onComplete)
     {
         switch (key.transType)
         {
             case TransformType.Position:
-                transform.DOMove((Vector3)key.vectors, key.dur)
-                    .SetDelay(key.delay)
-                    .SetEase(key.easeType)
-                    .OnComplete(() => onComplete?.Invoke())
-                    .SetLink(gameObject);
+                gameObject.LeanMove((Vector3)key.vectors, key.dur)
+                    .setDelay(key.delay)
+                    .setEase(key.easeType)
+                    .setOnComplete(onComplete);
                 break;
 
             case TransformType.Rotation:
-                transform.DORotate((Vector3)key.vectors, key.dur)
-                    .SetDelay(key.delay)
-                    .SetEase(key.easeType)
-                    .OnComplete(() => onComplete?.Invoke())
-                    .SetLink(gameObject);
+                gameObject.LeanRotate((Vector3)key.vectors, key.dur)
+                    .setDelay(key.delay)
+                    .setEase(key.easeType)
+                    .setOnComplete(onComplete);
                 break;
 
             case TransformType.Scale:
-                transform.DOScale((Vector3)key.vectors, key.dur)
-                    .SetDelay(key.delay)
-                    .SetEase(key.easeType)
-                    .OnComplete(() => onComplete?.Invoke())
-                    .SetLink(gameObject);
+                gameObject.LeanScale((Vector3)key.vectors, key.dur)
+                    .setDelay(key.delay)
+                    .setEase(key.easeType)
+                    .setOnComplete(onComplete);
                 break;
 
             case TransformType.Color:
-                TweenColor(gameObject, key.vectors, key.dur, key.delay, key.easeType, onComplete);
+                gameObject.LeanColor(key.vectors, key.dur)
+                    .setDelay(key.delay)
+                    .setEase(key.easeType)
+                    .setOnComplete(onComplete);
                 break;
         }
-    }
-
-    private void TweenColor(GameObject obj, Color targetColor, float dur, float delay, Ease ease, Action onComplete)
-    {
-        Tween tween = null;
-
-        if (obj.TryGetComponent<Graphic>(out var graphic))
-            tween = graphic.DOColor(targetColor, dur);
-        else if (obj.TryGetComponent<SpriteRenderer>(out var sr))
-            tween = sr.DOColor(targetColor, dur);
-        else if (obj.TryGetComponent<MeshRenderer>(out var mr))
-            tween = mr.material.DOColor(targetColor, dur);
-        else
-        {
-            Debug.LogWarning($"[DOTweenSequencer] No colorable component found on {obj.name}");
-            onComplete?.Invoke();
-            return;
-        }
-
-        tween.SetDelay(delay)
-             .SetEase(ease)
-             .OnComplete(() => onComplete?.Invoke())
-             .SetLink(gameObject);
     }
 
     public static Color GetColor(GameObject obj)
@@ -171,7 +147,7 @@ public class Util__DOTweenSequencer : MonoBehaviour
         if (obj.TryGetComponent<SpriteRenderer>(out var sr)) return sr.color;
         if (obj.TryGetComponent<MeshRenderer>(out var mr)) return mr.material.color;
 
-        Debug.LogWarning($"[DOTweenSequencer] No colorable component found on {obj.name}");
+        Debug.LogWarning($"[ColorUtility] No colorable component found on {obj.name}");
         return Color.white;
     }
 
@@ -181,15 +157,15 @@ public class Util__DOTweenSequencer : MonoBehaviour
         if (obj.TryGetComponent<SpriteRenderer>(out var sr)) { sr.color = color; return; }
         if (obj.TryGetComponent<MeshRenderer>(out var mr)) { mr.material.color = color; return; }
 
-        Debug.LogWarning($"[DOTweenSequencer] No colorable component found on {obj.name}");
+        Debug.LogWarning($"[ColorUtility] No colorable component found on {obj.name}");
     }
 }
 
 [Serializable]
-public class DOTweenKeyframe
+public class LeanTweenKeyframe
 {
     public TransformType transType;
-    public Ease easeType;           // DG.Tweening.Ease instead of LeanTweenType
+    public LeanTweenType easeType;
     public float dur;
     public float delay;
     public Vector4 vectors;

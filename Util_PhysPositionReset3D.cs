@@ -2,7 +2,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class UtilPhysPositionReset3D : MonoBehaviour
+public class Util_PhysPositionReset3D : MonoBehaviour
 {
     [SerializeField] private Vector3 resetPosition;
     [SerializeField] private bool triggerResetTransform;

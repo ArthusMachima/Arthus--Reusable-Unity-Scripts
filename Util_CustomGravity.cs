@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Util__CustomGravity : MonoBehaviour
+public class Util_CustomGravity : MonoBehaviour
 {
     private Rigidbody target;
     private Coroutine delayedStartCoroutine;

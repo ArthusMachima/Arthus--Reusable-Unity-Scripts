@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Util__CameraTransfer : MonoBehaviour
+public class Util_CameraTransfer : MonoBehaviour
 {
     [SerializeField] private Camera cam;
     [SerializeField] private Transform[] scenes;

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Util__MouseLog : MonoBehaviour
+public class Util_MouseLog : MonoBehaviour
 {
     private EventSystem _eventSystem;
     private PointerEventData _uiEventData;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Util__LookAt : MonoBehaviour
+public class Util_LookAt : MonoBehaviour
 {
     public Transform target;
     [SerializeField] private float RotationSpeed=10;

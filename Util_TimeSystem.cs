@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class Util__TimeSystem : MonoBehaviour
+public class Util_TimeSystem : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI outputText;
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class RendererGroupAlpha : MonoBehaviour
+public class Util_RendererGroupAlpha : MonoBehaviour
 {
     [Range(0f, 1f)]
     public float alpha = 1f;
